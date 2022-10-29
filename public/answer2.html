@@ -9,40 +9,38 @@
     <link href="../css/style.css" rel="stylesheet">
 </head>
 <body>
-<header >
-    <nav  class="navbar navbar-expand-lg bg-light border-bottom" style="background-color: #249195 !important;">
-        <div class="container" >
-            <a class="navbar-brand me-2 fs-4 fw-semibold" href="#">
-                <img src="../img/logo_icon.svg" alt="Bootstrap" width="30" height="30">
-                AskProgr
-            </a>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Ask a question</a>
-                    </li>
-                </ul>
-                <form class="w-50 d-flex me-4" role="search">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                    <button type="button" class="btn btn-outline-dark" type="submit">Search</button>
-
-                </form>
-                <div class="btn-group" role="group">
-                    <button type="button" class="btn btn-dark">Sign in</button>
-
-
-                    <button type="button" class="btn btn-outline-light">Sign up</button>
+    <header >
+        <nav  class="navbar navbar-expand-lg bg-light border-bottom border-dark" style="background-color: #249195 !important;">
+            <div class="container">
+                <a class="navbar-brand me-2 fs-4 fw-semibold" href="/questions">
+                    <img src="../img/logo_icon.svg" alt="Bootstrap" width="30" height="30">
+                    AskProgr
+                </a>
+                <div class="collapse navbar-collapse ms-2" id="navbarSupportedContent">
+                    <div class="col-9">
+                        <form class="d-flex me-3" role="search">
+                            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                            <button type="button" class="btn btn-outline-dark">Search</button>
+                        </form>
+                    </div>
+                    <a href="/ask" class="ms-auto">
+                        <button type="button" class="btn btn-outline-dark me-2">Ask question</button>
+                    </a>
+                    <div class="dropdown text-end">
+                        <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                            <img src="../img/lancer.png" alt="mdo" width="32" height="32" class="rounded-circle">
+                            Username
+                        </a>
+                        <ul class="dropdown-menu text-small">
+                            <li><a class="dropdown-item" href="/profile">Profile</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#">Sign out</a></li>
+                        </ul>
+                    </div>
                 </div>
-
-
             </div>
-        </div>
-    </nav>
-</header>
+        </nav>
+    </header>
 <content class="container d-flex mt-5">
 
     <div class="col-9">
@@ -65,10 +63,16 @@
                 
                 <div class="d-flex justify-content-between">
                     <div>
-                        <button type="button" class="btn btn-outline-dark btn-sm">pyhton</button>
-                        <button type="button" class="btn btn-outline-dark btn-sm">javascript</button>
-                        <button type="button" class="btn btn-outline-dark btn-sm">kotlin</button>
-                    </div>
+                        <a href="/questions/tag" class="text-decoration-none">
+                            <button type="button" class="btn btn-outline-dark btn-sm">pyhton</button>
+                        </a>
+                        <a href="/questions/tag" class="text-decoration-none">
+                            <button type="button" class="btn btn-outline-dark btn-sm">javascript</button>
+                        </a>
+                        <a href="/questions/tag" class="text-decoration-none">
+                            <button type="button" class="btn btn-outline-dark btn-sm">kotlin</button>
+                        </a>                   
+                     </div>
                     <div class="ask-usr-block d-inline-block p-2">
                         <span class="ask-usr-date fw-light">Jan 29, 2018 at 17:17</span>
                         <div class="d-flex align-items-center">
@@ -190,18 +194,19 @@
         <div class="mt-4">
             <textarea class="form-control" id="exampleFormControlTextarea1" rows="5"
             placeholder="Write an answer"></textarea>
-            <button type="submit" class="btn btn-dark mt-3">Post answer</button>
-          </div>
-
-        <nav aria-label="Page navigation example">
-            <ul class="pagination mt-4 justify-content-end">
-                <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item"><a class="page-link" href="#">Next</a></li>
-            </ul>
-        </nav>
+            <div class="d-flex justify-content-between mt-3">
+                <button type="submit" class="btn btn-dark">Post answer</button>
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination justify-content-end mb-0">
+                        <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+                        <li class="page-item"><a class="page-link" href="#">1</a></li>
+                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                        <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
         
 
     </div>
@@ -209,37 +214,51 @@
         <popTags>
             <h3>Popular Tags</h3>
             <div class="mt-3">
-                <button type="button" class="btn btn-outline-secondary btn-sm">python</button>
+                <a href="/questions/tag" class="text-decoration-none">
+                    <button type="button" class="btn btn-outline-secondary btn-sm">python</button>
+                </a>
                 <span>x</span>
                 <span>252478</span>
             </div>
             <div class="mt-3">
-                <button type="button" class="btn btn-outline-secondary btn-sm">javascript</button>
+                <a href="/questions/tag" class="text-decoration-none">
+                    <button type="button" class="btn btn-outline-secondary btn-sm">jango</button>
+                </a>                
                 <span>x</span>
                 <span>252478</span>
             </div>
             <div class="mt-3">
-                <button type="button" class="btn btn-outline-secondary btn-sm">kotlin</button>
+                <a href="/questions/tag" class="text-decoration-none">
+                    <button type="button" class="btn btn-outline-secondary btn-sm">kotlin</button>
+                </a>
                 <span>x</span>
                 <span>252478</span>
             </div>
             <div class="mt-3">
-                <button type="button" class="btn btn-outline-secondary btn-sm">jango</button>
+                <a href="/questions/tag" class="text-decoration-none">
+                    <button type="button" class="btn btn-outline-secondary btn-sm">java</button>
+                </a>                
                 <span>x</span>
                 <span>252478</span>
             </div>
             <div class="mt-3">
-                <button type="button" class="btn btn-outline-secondary btn-sm">Python</button>
+                <a href="/questions/tag" class="text-decoration-none">
+                    <button type="button" class="btn btn-outline-secondary btn-sm">Python</button>
+                </a>               
                 <span>x</span>
                 <span>252478</span>
             </div>
             <div class="mt-3">
-                <button type="button" class="btn btn-outline-secondary btn-sm">Python</button>
+                <a href="/questions/tag" class="text-decoration-none">
+                    <button type="button" class="btn btn-outline-secondary btn-sm">Python</button>
+                </a>               
                 <span>x</span>
                 <span>252478</span>
             </div>
             <div class="mt-3">
-                <button type="button" class="btn btn-outline-secondary btn-sm">Python</button>
+                <a href="/questions/tag" class="text-decoration-none">
+                    <button type="button" class="btn btn-outline-secondary btn-sm">Python</button>
+                </a>               
                 <span>x</span>
                 <span>252478</span>
             </div>
