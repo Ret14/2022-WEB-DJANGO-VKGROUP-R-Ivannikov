@@ -2,11 +2,10 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Title</title>
+  <title>Sign up</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Sticky Footer Navbar Template · Bootstrap v5.2</title>
   <link href="../css/bootstrap.min.css" rel="stylesheet">
-  <link href="../css/style.css" rel="stylesheet">
+  <link href="/style.css" rel="stylesheet">
 </head>
 <body>
   <header >
@@ -47,14 +46,19 @@
           </div>
         </div>
       </div>
-      <div class="mb-3">
+      <div class="mb-3 has-validation">
         <label for="inputEmail" class="form-label">Email address</label>
-        <input type="email" placeholder="you@example.com" maxlength="40" class="form-control" id="inputEmail" aria-describedby="emailHelp">
-        <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+        <input type="email" placeholder="you@example.com" maxlength="40" class="form-control is-invalid" id="inputEmail">
+        <div class="invalid-feedback">
+          This email address is not correct.
+        </div>
       </div>
-      <div class="mb-3">
+      <div class="mb-3 has-validation">
         <label for="inputPassword" class="form-label">Password</label>
-        <input type="password" class="form-control" maxlength="100" id="inputPassword">
+        <input type="password" class="form-control is-invalid" maxlength="100" id="inputPassword">
+        <div class="invalid-feedback">
+          Your password is too short.
+        </div>
       </div>
       <div class="mb-3">
         <label for="inputAvatar" class="form-label">Avatar</label>
