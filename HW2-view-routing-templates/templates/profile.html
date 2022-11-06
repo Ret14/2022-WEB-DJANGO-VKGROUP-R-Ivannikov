@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+{% extends '/inc/base_authorized.html' %}
+{% load static %}
+{% block content %}
+<h3>Profile</h3>
+<form class="w-50 mt-3">
+    <div class="mb-3">
+        <label for="inputUsername" class="form-label">Username</label>
+        <div class="input-group has-validation">
+            <span class="input-group-text">@</span>
+            <input type="text" value="username" maxlength="20" class="form-control is-invalid" id="inputUsername" placeholder="Username" required="">
+            <div class="invalid-feedback">
+                This username already exists.
+            </div>
+        </div>
+    </div>
+    <div class="mb-3 has-validation">
+        <label for="inputEmail" class="form-label">Email address</label>
+        <input type="email" placeholder="you@example.com" value="you@example.com" maxlength="40" class="form-control is-invalid" id="inputEmail">
+        <div class="invalid-feedback">
+            This email address is not correct.
+          </div>
+    </div>
+    <div class="mb-3">
+        <label for="inputPassword" class="form-label">Password</label>
+        <input value="12345" type="password" class="form-control" maxlength="100" id="inputPassword">
+    </div>
+    <span class="rating">548</span>
+    <div class="mb-3 mt-3 has-validation">
+        <label for="inputAvatar" class="form-label">Avatar</label>
+        <input class="form-control " type="file" id="inputAvatar">
+        <div class="d-flex mt-3">
+            <img src="{% static '/img/lancer.png' %}" width="64" height="64" class="rounded-circle border border-1 border-dark me-3"/>
+            <img src="{% static '/img/lancer.png' %}" width="32" height="32" class="rounded-circle border border-1 border-dark"/>
+        </div>
+        </div>
+    <button type="submit" class="btn btn-dark">Save changes</button>
+</form>
+{% endblock %}
