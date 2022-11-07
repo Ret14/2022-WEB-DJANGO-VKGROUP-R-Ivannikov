@@ -5,14 +5,16 @@
 <div class="d-flex justify-content-between">
     {% block page_title %}
     <h3>Newest Questions</h3>
-    <div class="d-flex">
-        <button type="button" class="btn btn-outline-dark">Popular</button>
-        <button type="button" class="btn btn-outline-dark active ms-3">Newest</button>
+    <div class="btn-group" role="group">
+        <a role="button" href="{% url 'popular_questions' %}" class="btn btn-outline-dark">Popular</a>
+        <a href="{% url 'questions' %}" role="button" class="btn btn-outline-dark active">Newest</a>
     </div>
     {% endblock %}
 </div>
 {% for question in page_obj %}
     {% include './inc/question_item.html' %}
 {% endfor %}
+{% block pagination %}
 {% include './inc/pagination.html' %}
+{% endblock %}
 {% endblock %}

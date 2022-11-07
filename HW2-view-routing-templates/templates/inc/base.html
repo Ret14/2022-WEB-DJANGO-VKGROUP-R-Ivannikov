@@ -3,9 +3,9 @@
 {% load static %}
 {% block header_end_content %}
 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <div class="ms-auto btn-group" role="group">
-        <button type="button" class="btn btn-dark btn-sm">Sign in</button>
-        <button type="button" class="btn btn-outline-light btn-sm">Sign up</button>
+    <div class="btn-group" role="group">
+        <a role="button" href="{% url 'login' %}" class="btn btn-dark btn-sm">Sign In</a>
+        <a role="button" href="{% url 'sign_up' %}" class="btn btn-outline-light btn-sm">Sign Up</a>
     </div>
 </div>
 {% endblock %}

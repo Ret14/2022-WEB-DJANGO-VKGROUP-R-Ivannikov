@@ -1,7 +1,6 @@
 from django.shortcuts import render
 from . import models
-from django.core.paginator import Paginator
-
+from . import functions
 
 CONTEXT = {
     'tags': models.POPULAR_TAGS,
@@ -9,19 +8,27 @@ CONTEXT = {
 }
 
 
-def index(request, num=1):
+def index(request, page=1):
     context = CONTEXT
     context['url_name'] = 'questions'
-    paginator = Paginator(models.QUESTIONS, 20)
-    # page_number = request.GET.get('page')
-    context['page_obj'] = paginator.get_page(num)
+    context['page_obj'] = functions.pagination(models.QUESTIONS, 20, page)
 
     return render(request, template_name='new_questions.html', context=context)
 
 
-def hot(request):
+def questions_by_tag(request, tag='', page=1):
     context = CONTEXT
-    context['questions'] = models.QUESTIONS
+    context['url_name'] = 'questions_by_tag'
+    context['tag'] = tag
+    context['page_obj'] = functions.pagination(models.QUESTIONS, 20, page)
+
+    return render(request, template_name='questions_by_tag.html', context=context)
+
+
+def hot(request, page=1):
+    context = CONTEXT
+    context['url_name'] = 'hot_questions'
+    context['page_obj'] = functions.pagination(models.QUESTIONS, 20, page)
     return render(request, template_name='hot_questions.html', context=context)
 
 
@@ -31,3 +38,11 @@ def login(request):
 
 def signup(request):
     return render(request, template_name='signup.html', context=CONTEXT)
+
+
+def ask(request):
+    return render(request, template_name='ask.html', context=CONTEXT)
+
+
+def profile(request):
+    return render(request, template_name='profile.html', context=CONTEXT)

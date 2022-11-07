@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <nav>
-  <ul class="pagination justify-content-end mb-0">
+  <ul class="pagination justify-content-end mb-0 mt-3">
     {% if page_obj.has_previous %}
       <li class="page-item">
-        <a class="page-link" href="{% url url_name page_obj.previous_page_number %}">Previous</a>
+        {% block previous_page %}
+          <a class="page-link" href="{% url url_name page_obj.previous_page_number %}">Previous</a>
+        {% endblock %}
       </li>
     {% else %}
       <li class="page-item disabled">
@@ -19,7 +21,9 @@
         </li>
       {% else %}
         <li class="page-item">
-          <a class="page-link" href="{% url url_name page_number %}">{{page_number}}</a>
+          {% block page %}
+            <a class="page-link" href="{% url url_name page_number %}">{{page_number}}</a>
+          {% endblock %}
         </li>
       {% endif %}
 
@@ -27,7 +31,9 @@
 
     {% if page_obj.has_next %}
       <li class="page-item">
-        <a class="page-link" href="{% url url_name page_obj.next_page_number %}">Next</a>
+        {% block next_page %}
+          <a class="page-link" href="{% url url_name page_obj.next_page_number %}">Next</a>
+        {% endblock %}
       </li>
     {% else %}
       <li class="page-item disabled">

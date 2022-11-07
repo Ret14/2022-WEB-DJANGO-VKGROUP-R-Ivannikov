@@ -12,7 +12,7 @@
     <header >
         <nav  class="navbar navbar-expand-lg bg-light border-bottom border-dark" style="background-color: #249195 !important;">
             <div class="container">
-                <a class="navbar-brand me-2 fs-4 fw-semibold" href="/">
+                <a class="navbar-brand me-2 fs-4 fw-semibold" href="{% url 'questions' %}">
                     <img src="{% static '/img/logo_icon.svg' %}" alt="Bootstrap" width="30" height="30">
                     AskProgr
                 </a>
@@ -23,9 +23,7 @@
                             <button type="button" class="btn btn-outline-dark">Search</button>
                         </form>
                     {% endblock %}
-                    <a href="/ask" class="ms-auto">
-                        <button type="button" class="btn btn-outline-dark me-2">Ask question</button>
-                    </a>
+                        <a role="button" href="{% url 'ask_question' %}" class="ms-auto btn btn-outline-dark me-2">Ask question</a>
                     {% block header_end_content %}
                     <div class="dropdown text-end">
                         <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
@@ -33,7 +31,7 @@
                             Username
                         </a>
                         <ul class="dropdown-menu text-small">
-                            <li><a class="dropdown-item" href="/profile">Profile</a></li>
+                            <li><a class="dropdown-item" href="{% url 'profile' %}">Profile</a></li>
                             <li><hr class="dropdown-divider"></li>
                             <li><a class="dropdown-item" href="#">Sign out</a></li>
                         </ul>
