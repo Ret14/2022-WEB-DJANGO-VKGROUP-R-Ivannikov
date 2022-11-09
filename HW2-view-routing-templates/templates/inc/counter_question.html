@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+{% load static %}
+<div class="d-inline-flex flex-column text-center">
+  <button class="btn-rate">
+      <img src="{% static '/img/like.svg' %}"  alt="" width="25" height="25">
+  </button>
+  {% block rating %}
+  <span class="fs-5">{{question.rating}}</span>
+  {% endblock %}
+  <button class="btn-rate">
+      <img src="{% static '/img/like.svg' %}"  style="rotate: 180deg;" alt="" width="25" height="25">
+  </button>
+</div>

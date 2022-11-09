@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 {% extends './new_questions.html' %}
 {% block page_title %}
-    <h3>Popular questions by tag: {{tag}}</h3>
-    <div class="d-flex">
-        <button type="button" class="btn btn-outline-dark active">Popular</button>
-        <button type="button" class="btn btn-outline-dark ms-3">Newest</button>
+    <h3>Newest questions by tag: {{tag}}</h3>
+    <div class="d-flex btn-group" role="group">
+        <a role="button" href="{% url 'questions_tag_popular' tag %}" class="btn btn-outline-dark">Popular</a>
+        <a role="button" href="{% url 'questions_by_tag' tag %}" class="btn btn-outline-dark active">Newest</a>
     </div>
 {% endblock %}
 {% block pagination %}

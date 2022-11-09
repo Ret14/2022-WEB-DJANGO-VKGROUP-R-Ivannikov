@@ -2,28 +2,20 @@
 {% load static %}
 <div class="row sup-border pb-4 mt-3">
     <div class="col-1 text-center">
-        <div class="d-inline-flex flex-column text-center">
-            <button class="btn-rate">
-                <img src="{% static '/img/like.svg' %}"  alt="" width="25" height="25">
-            </button>
-            <span class="fs-5">{{ question.rating }}</span>
-            <button class="btn-rate">
-                <img src="{% static '/img/like.svg' %}"  style="rotate: 180deg;" alt="" width="25" height="25">
-            </button>
-        </div>
+        {% include './counter_question.html' %}
     </div>
     <div class="col-11">
-        <a href="#" class="d-inline-block">
+        {% block question_title %}
+        <a href="{% url 'answers' question.id %}" class="d-inline-block">
             <h3>{{ question.title }}</h3>
         </a>
+        {% endblock %}
         <p class="mt-3">{{ question.text }}</p>
 
         <div class="d-flex justify-content-between">
             <div>
                 {% for tag in question.tags %}
-                <a href="/questions/tag" class="text-decoration-none">
-                    <button type="button" class="btn btn-outline-dark btn-sm">{{ tag }}</button>
-                </a>
+                    <a role="button" href="{% url 'questions_by_tag' tag %}" class="btn btn-outline-dark btn-sm">{{ tag }}</a>
                 {% endfor %}
             </div>
             <div class="ask-usr-block d-inline-block p-2">

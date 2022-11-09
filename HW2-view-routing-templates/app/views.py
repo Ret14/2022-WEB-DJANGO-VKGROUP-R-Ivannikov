@@ -1,6 +1,5 @@
 from django.shortcuts import render
-from . import models
-from . import functions
+from . import models, functions
 
 CONTEXT = {
     'tags': models.POPULAR_TAGS,
@@ -11,25 +10,45 @@ CONTEXT = {
 def index(request, page=1):
     context = CONTEXT
     context['url_name'] = 'questions'
-    context['page_obj'] = functions.pagination(models.QUESTIONS, 20, page)
-
-    return render(request, template_name='new_questions.html', context=context)
+    return functions.paginated_render(
+        request, 'new_questions.html', context, models.QUESTIONS, 20, page
+    )
 
 
 def questions_by_tag(request, tag='', page=1):
     context = CONTEXT
     context['url_name'] = 'questions_by_tag'
     context['tag'] = tag
-    context['page_obj'] = functions.pagination(models.QUESTIONS, 20, page)
+    return functions.paginated_render(
+        request, 'questions_by_tag.html', context, models.QUESTIONS, 20, page, tag=tag
+    )
 
-    return render(request, template_name='questions_by_tag.html', context=context)
 
-
-def hot(request, page=1):
+def questions_tag_popular(request, tag='', page=1):
     context = CONTEXT
-    context['url_name'] = 'hot_questions'
-    context['page_obj'] = functions.pagination(models.QUESTIONS, 20, page)
-    return render(request, template_name='hot_questions.html', context=context)
+    context['url_name'] = 'questions_tag_popular'
+    context['tag'] = tag
+    return functions.paginated_render(
+        request, 'questions_tag_popular.html', context, models.QUESTIONS, 20, page, tag=tag
+    )
+
+
+def answers(request, id, page=1):
+    context = CONTEXT
+    context['url_name'] = 'answers'
+    context['question_id'] = id
+    context['question'] = functions.get_question(models.QUESTIONS, id)
+    return functions.paginated_render(
+        request, 'answers.html', context, context['question']['answers'], 20, page, id=id
+    )
+
+
+def popular_questions(request, page=1):
+    context = CONTEXT
+    context['url_name'] = 'popular_questions'
+    return functions.paginated_render(
+        request, 'hot_questions.html', context, models.QUESTIONS, 20, page
+    )
 
 
 def login(request):

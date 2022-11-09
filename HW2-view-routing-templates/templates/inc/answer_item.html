@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<div class="row sup-border pb-3 mt-3">
+    <div class="col-1 text-center">
+        {% include './counter_answer.html' %}
+    </div>
+    <div class="col-11">
+        <p>{{answer.text}}</p>
+        {% block 'secondary_content' %}
+            <div class="d-flex justify-content-end">
+                {% include './answer_user_block.html' %}
+            </div>
+        {% endblock %}
+    </div>
+</div>

@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+{% extends './questions_by_tag.html' %}
+{% block page_title %}
+    <h3>Popular questions by tag: {{tag}}</h3>
+    <div class="d-flex btn-group" role="group">
+        <a role="button" href="{% url 'questions_tag_popular' tag %}" class="btn btn-outline-dark active">Popular</a>
+        <a role="button" href="{% url 'questions_by_tag' tag %}" class="btn btn-outline-dark">Newest</a>
+    </div>
+{% endblock %}
+{% block pagination %}
+{% include './inc/pagination_tag.html' %}
+{% endblock %}

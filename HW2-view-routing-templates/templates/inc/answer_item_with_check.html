@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+{% extends './inc/answer_item.html' %}
+{% block 'secondary_content' %}
+<div class="d-flex justify-content-between">
+    <div class="form-check align-items-center">
+        <input class="form-check-input" data-bs-toggle="modal" data-bs-target="#exampleModal" type="checkbox" value="" id="flexCheckDefault">
+        <label class="form-check-label" for="flexCheckDefault">
+          Mark as a solution
+        </label>
+    </div>
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">We need to be sure</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+            Mark this answer as the solution?
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Naaaah</button>
+            <button type="button" class="btn btn-primary">Mark as solution</button>
+            </div>
+        </div>
+        </div>
+    </div>
+    {% include './inc/answer_user_block.html' %}
+</div>
+{% endblock %}
