@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 {% extends './new_questions.html' %}
 {% block page_title %}
     <h3>Newest questions by tag: {{tag}}</h3>
@@ -8,5 +7,5 @@
     </div>
 {% endblock %}
 {% block pagination %}
-{% include './inc/pagination_tag.html' %}
+    {% include './inc/pagination_tag.html' %}
 {% endblock %}

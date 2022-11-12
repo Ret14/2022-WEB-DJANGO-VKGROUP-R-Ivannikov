@@ -10,45 +10,44 @@ CONTEXT = {
 def index(request, page=1):
     context = CONTEXT
     context['url_name'] = 'questions'
-    return functions.paginated_render(
-        request, 'new_questions.html', context, models.QUESTIONS, 20, page
-    )
+    context['page_obj'] = functions.pagination(models.QUESTIONS, 20, page)
+
+    return render(request, 'new_questions.html', context)
 
 
 def questions_by_tag(request, tag='', page=1):
     context = CONTEXT
     context['url_name'] = 'questions_by_tag'
     context['tag'] = tag
-    return functions.paginated_render(
-        request, 'questions_by_tag.html', context, models.QUESTIONS, 20, page, tag=tag
-    )
+    context['page_obj'] = functions.pagination(models.QUESTIONS, 20, page)
+
+    return render(request, 'questions_by_tag.html', context)
 
 
-def questions_tag_popular(request, tag='', page=1):
+def questions_tag_popular(request, tag, page=1):
     context = CONTEXT
     context['url_name'] = 'questions_tag_popular'
     context['tag'] = tag
-    return functions.paginated_render(
-        request, 'questions_tag_popular.html', context, models.QUESTIONS, 20, page, tag=tag
-    )
+    context['page_obj'] = functions.pagination(models.QUESTIONS, 20, page)
+
+    return render(request, 'questions_tag_popular.html', context)
 
 
 def answers(request, id, page=1):
     context = CONTEXT
     context['url_name'] = 'answers'
-    context['question_id'] = id
     context['question'] = functions.get_question(models.QUESTIONS, id)
-    return functions.paginated_render(
-        request, 'answers.html', context, context['question']['answers'], 20, page, id=id
-    )
+    context['page_obj'] = functions.pagination(context['question']['answers'], 20, page)
+
+    return render(request, 'answers.html', context)
 
 
 def popular_questions(request, page=1):
     context = CONTEXT
     context['url_name'] = 'popular_questions'
-    return functions.paginated_render(
-        request, 'hot_questions.html', context, models.QUESTIONS, 20, page
-    )
+    context['page_obj'] = functions.pagination(models.QUESTIONS, 20, page)
+
+    return render(request, 'hot_questions.html', context)
 
 
 def login(request):

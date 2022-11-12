@@ -44,6 +44,8 @@
     <content class="container d-flex mt-5">
         <div class="col-9">
             {% block content %}
+                {% block page_title %}
+                {% endblock %}
             {% endblock %}
         </div>
         <div class="col-3 ps-5">
