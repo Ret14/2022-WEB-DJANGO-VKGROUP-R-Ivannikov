@@ -1,4 +1,69 @@
 from django.db import models
+from django.contrib.auth.models import User, AbstractUser
+
+
+class Profile(AbstractUser):
+    avatar = models.ImageField(upload_to='uploads', default='static/img/lancer.png')
+    # rating = models.IntegerField()
+
+
+class Tag(models.Model):
+    tag = models.CharField(unique=True, max_length=100)
+
+    @property
+    def rating(self):
+        return Question.objects.filter(tags__in=self).count()
+
+
+class Question(models.Model):
+    author_id = models.ForeignKey(Profile, models.SET_NULL, blank=True, null=True)
+    title = models.CharField(max_length=1000)
+    text = models.CharField(max_length=1000)
+    tags = models.ManyToManyField(Tag)
+    datetime = models.DateTimeField(auto_now=True)
+    # rating = models.IntegerField()
+
+    @property
+    def rating(self):
+        return QuestionLike.objects.filter(question_id=self, is_upvote=True).count() - \
+               QuestionLike.objects.filter(question_id=self, is_upvote=False).count()
+
+
+class Answer(models.Model):
+    author_id = models.ForeignKey(Profile, models.SET_NULL, blank=True, null=True)
+    question_id = models.ForeignKey(Question, on_delete=models.CASCADE)
+    datetime = models.DateTimeField(auto_now=True)
+    text = models.CharField(max_length=1000)
+    # rating = models.IntegerField()
+
+    @property
+    def rating(self):
+        return AnswerLike.objects.filter(answer_id=self, is_upvote=True).count() - \
+               AnswerLike.objects.filter(answer_id=self, is_upvote=False).count()
+
+
+class QuestionLike(models.Model):
+    user_id = models.ForeignKey(Profile, models.SET_NULL, blank=True, null=True)
+    question_id = models.ForeignKey(Question, on_delete=models.CASCADE)
+    is_upvote = models.BooleanField()
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=('user_id', 'question_id'), name='unique_user_question')
+        ]
+
+
+class AnswerLike(models.Model):
+    user_id = models.ForeignKey(Profile, models.SET_NULL, blank=True, null=True)
+    answer_id = models.ForeignKey(Answer, on_delete=models.CASCADE)
+    is_upvote = models.BooleanField()
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=('user_id', 'answer_id'), name='unique_user_answer')
+        ]
+
+
 
 QUESTIONS = [
     {
