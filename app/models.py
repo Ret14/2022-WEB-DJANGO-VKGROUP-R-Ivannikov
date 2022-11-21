@@ -1,108 +1,69 @@
 from django.db import models
-from django.contrib.auth.models import User, AbstractUser
+from django.contrib.auth.models import AbstractUser
+from app.managers import QuestionManager, AnswerManager, TagManager, ProfileManager
 
 
 class Profile(AbstractUser):
-    avatar = models.ImageField(upload_to='uploads', default='static/img/lancer.png')
-    # rating = models.IntegerField()
+    avatar = models.ImageField(upload_to='uploads', default='static/img/test-avatar-1.png')
+    objects = ProfileManager()
+
+    def get_rating(self):
+        return Question.objects.filter(author_id=self.id).count() + Answer.objects.filter(author_id=self.id).count()
+    def __str__(self):
+        return self.username
 
 
 class Tag(models.Model):
-    tag = models.CharField(unique=True, max_length=100)
+    tag = models.CharField(unique=True, max_length=20)
+    objects = TagManager()
 
-    @property
-    def rating(self):
-        return Question.objects.filter(tags__in=self).count()
+    def __str__(self):
+        return self.tag
 
 
 class Question(models.Model):
-    author_id = models.ForeignKey(Profile, models.SET_NULL, blank=True, null=True)
-    title = models.CharField(max_length=1000)
+    author = models.ForeignKey(Profile, models.SET_NULL, blank=True, null=True)
+    title = models.CharField(max_length=200)
     text = models.CharField(max_length=1000)
     tags = models.ManyToManyField(Tag)
-    datetime = models.DateTimeField(auto_now=True)
-    # rating = models.IntegerField()
+    asked_date = models.DateTimeField(auto_now=True)
+    objects = QuestionManager()
 
-    @property
-    def rating(self):
-        return QuestionLike.objects.filter(question_id=self, is_upvote=True).count() - \
-               QuestionLike.objects.filter(question_id=self, is_upvote=False).count()
+    def get_rating(self):
+        return QuestionLike.objects.filter(question_id=self.id, is_upvote=True).count() -\
+               QuestionLike.objects.filter(question_id=self.id, is_upvote=False).count()
 
 
 class Answer(models.Model):
-    author_id = models.ForeignKey(Profile, models.SET_NULL, blank=True, null=True)
-    question_id = models.ForeignKey(Question, on_delete=models.CASCADE)
-    datetime = models.DateTimeField(auto_now=True)
+    author = models.ForeignKey(Profile, models.SET_NULL, blank=True, null=True)
+    question = models.ForeignKey(Question, on_delete=models.CASCADE)
+    answered_date = models.DateTimeField(auto_now=True)
     text = models.CharField(max_length=1000)
-    # rating = models.IntegerField()
+    objects = AnswerManager()
 
-    @property
-    def rating(self):
-        return AnswerLike.objects.filter(answer_id=self, is_upvote=True).count() - \
-               AnswerLike.objects.filter(answer_id=self, is_upvote=False).count()
+    def get_rating(self):
+        return AnswerLike.objects.filter(answer_id=self.id, is_upvote=True).count() -\
+               AnswerLike.objects.filter(answer_id=self.id, is_upvote=False).count()
+
 
 
 class QuestionLike(models.Model):
-    user_id = models.ForeignKey(Profile, models.SET_NULL, blank=True, null=True)
-    question_id = models.ForeignKey(Question, on_delete=models.CASCADE)
+    user = models.ForeignKey(Profile, models.SET_NULL, blank=True, null=True)
+    question = models.ForeignKey(Question, on_delete=models.CASCADE)
     is_upvote = models.BooleanField()
 
     class Meta:
         constraints = [
-            models.UniqueConstraint(fields=('user_id', 'question_id'), name='unique_user_question')
+            models.UniqueConstraint(fields=('user', 'question'), name='unique_user_question')
         ]
 
 
 class AnswerLike(models.Model):
-    user_id = models.ForeignKey(Profile, models.SET_NULL, blank=True, null=True)
-    answer_id = models.ForeignKey(Answer, on_delete=models.CASCADE)
+    user = models.ForeignKey(Profile, models.SET_NULL, blank=True, null=True)
+    answer = models.ForeignKey(Answer, on_delete=models.CASCADE)
     is_upvote = models.BooleanField()
 
     class Meta:
         constraints = [
-            models.UniqueConstraint(fields=('user_id', 'answer_id'), name='unique_user_answer')
+            models.UniqueConstraint(fields=('user', 'answer'), name='unique_user_answer')
         ]
-
-
-
-QUESTIONS = [
-    {
-        'id': question_id,
-        'title': f'Title of question #{question_id}',
-        'text': f'Text of question #{question_id}',
-        'tags': ['python', 'django', 'javascript'],
-        'rating': question_id,
-        'asked_date': f'Jan {question_id}, 2018 at 17:17',
-        'user': {
-            'username': f'User{question_id}',
-            'rating': question_id + 5,
-            'avatar_path': 'img/chris.png'
-        },
-        'answers': [
-            {
-                'text': f'Text of answer #{answer_number}',
-                'author': {
-                    'username': f'User{answer_number}',
-                    'rating': answer_number + 6,
-                    'avatar_path': 'img/chris.png'
-                },
-                'date': f'Jan {answer_number}, 2018 at 17:17',
-                'rating': answer_number
-            } for answer_number in range(50)
-        ]
-
-    } for question_id in range(50)
-]
-
-POPULAR_TAGS = [
-    {'name': 'python', 'count': 252478},
-    {'name': 'kotlin', 'count': 288478},
-    {'name': 'javascript', 'count': 252998},
-    {'name': 'django', 'count': 258778},
-    {'name': 'pascal', 'count': 284478},
-    {'name': 'c++', 'count': 252471},
-]
-
-POPULAR_USERS = [
-    'Jojo', 'Dio', 'Johnathan Joestar', 'Jojo', 'Dio', 'Johnathan Joestar'
-]

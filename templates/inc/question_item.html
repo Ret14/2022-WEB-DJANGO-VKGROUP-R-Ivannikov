@@ -13,17 +13,17 @@
 
         <div class="d-flex justify-content-between">
             <div>
-                {% for tag in question.tags %}
-                    <a role="button" href="{% url 'questions_by_tag' tag %}" class="btn btn-outline-dark btn-sm">{{ tag }}</a>
+                {% for tag in question.tags.all %}
+                    <a role="button" href="{% url 'questions_by_tag' tag.tag %}" class="btn btn-outline-dark btn-sm">{{ tag.tag }}</a>
                 {% endfor %}
             </div>
             <div class="ask-usr-block d-inline-block p-2">
-                <span class="ask-usr-date fw-light">{{question.asked_date}}</span>
+                <span class="ask-usr-date fw-light">{{question.asked_date|date:"Y-m-d H:i"}}</span>
                 <div class="d-flex align-items-center">
-                    <img class="border border-dark border-2 rounded-circle " src="{% static question.user.avatar_path %}"  width="32" height="32" alt="">
+                    <img class="border border-dark border-2 rounded-circle " src="{% static question.author.avatar %}"  width="32" height="32" alt="">
                     <div class="d-flex flex-column ms-2">
-                        <span class="mb-0">{{question.user.username}}</span>
-                        <span style="font-size: small;">{{question.user.rating}}</span>
+                        <span class="mb-0">{{question.author.username}}</span>
+                        <span style="font-size: small;">{{question.author.get_rating}}</span>
                     </div>
                 </div>
             </div>

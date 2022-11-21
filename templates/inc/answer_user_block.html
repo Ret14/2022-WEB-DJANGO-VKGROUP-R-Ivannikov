@@ -1,11 +1,11 @@
 {% load static %}
 <div class="ans-usr-block d-inline-block p-2">
-    <span class="ans-usr-date fw-light">{{answer.date}}</span>
+    <span class="ans-usr-date fw-light">{{answer.answered_date|date:"Y-m-d H:i"}}</span>
     <div class="d-flex align-items-center">
-        <img class="border border-dark border-2 rounded-circle " src="{% static answer.author.avatar_path %}"  width="32" height="32" alt="">
+        <img class="border border-dark border-2 rounded-circle " src="{% static answer.author.avatar %}"  width="32" height="32" alt="">
         <div class="d-flex flex-column ms-2">
             <span class="mb-0">{{answer.author.username}}</span>
-            <span style="font-size: small;">{{answer.author.rating}}</span>
+            <span style="font-size: small;">{{answer.author.get_rating}}</span>
         </div>
     </div>
 </div>
